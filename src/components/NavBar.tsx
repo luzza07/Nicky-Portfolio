@@ -1,41 +1,32 @@
-"use client";
-import { useState, useEffect } from "react";
-import {
-  Menu,
-  X,
-  Download,
-  User,
-  Briefcase,
-  Code,
-  Mail,
-  Linkedin,
-  Github,
-} from "lucide-react";
+"use client"
+import { useState, useEffect } from "react"
+import type React from "react"
+import { Menu, X, Download, User, Briefcase, Code, Mail, Linkedin, Github } from 'lucide-react'
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   // Handle scroll effect for navbar
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
-        setScrolled(true);
+        setScrolled(true)
       } else {
-        setScrolled(false);
+        setScrolled(false)
       }
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   // Close menu when clicking on a link
   const handleNavClick = () => {
     if (isMenuOpen) {
-      setIsMenuOpen(false);
+      setIsMenuOpen(false)
     }
-  };
+  }
 
   return (
     <>
@@ -46,12 +37,13 @@ const Navbar = () => {
             : "bg-white/80 backdrop-blur-sm py-4"
         }`}
       >
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="flex items-center justify-between">
+        {/* Full width container to match other sections */}
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between max-w-7xl mx-auto">
             {/* Logo/Brand */}
             <div className="relative group">
               <a
-                href="/"
+                href="#home"
                 className="relative text-2xl md:text-3xl font-bold tracking-tight text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105"
               >
                 Nicky Maharjan
@@ -63,26 +55,10 @@ const Navbar = () => {
             {/* Desktop Navigation */}
             <div className="items-center hidden md:flex space-x-1">
               <div className="flex items-center p-2 space-x-1 bg-gray-50 border border-gray-200 rounded-full shadow-sm">
-                <NavLink
-                  href="/"
-                  text="Home"
-                  icon={<User className="w-4 h-4" />}
-                />
-                <NavLink
-                  href="#experience"
-                  text="Experience"
-                  icon={<Briefcase className="w-4 h-4" />}
-                />
-                <NavLink
-                  href="#skills"
-                  text="Skills"
-                  icon={<Code className="w-4 h-4" />}
-                />
-                <NavLink
-                  href="#footer"
-                  text="Contact"
-                  icon={<Mail className="w-4 h-4" />}
-                />
+                <NavLink href="#home" text="Home" icon={<User className="w-4 h-4" />} />
+                <NavLink href="#experience" text="Experience" icon={<Briefcase className="w-4 h-4" />} />
+                <NavLink href="#skills" text="Skills" icon={<Code className="w-4 h-4" />} />
+                <NavLink href="#footer" text="Contact" icon={<Mail className="w-4 h-4" />} />
               </div>
 
               {/* Resume Button */}
@@ -91,7 +67,7 @@ const Navbar = () => {
                   onClick={() =>
                     window.open(
                       "https://drive.google.com/file/d/1gEvDi0PrJAqQMTWAW_JRf7EnX1pDh83k/view?usp=drive_link",
-                      "_blank"
+                      "_blank",
                     )
                   }
                   className="relative px-6 py-3 font-semibold text-white transition-all duration-300 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 group overflow-hidden"
@@ -116,15 +92,9 @@ const Navbar = () => {
                 <span className="sr-only">Open main menu</span>
                 <div className="relative">
                   {isMenuOpen ? (
-                    <X
-                      size={20}
-                      className="transition-transform duration-300 rotate-90"
-                    />
+                    <X size={20} className="transition-transform duration-300 rotate-90" />
                   ) : (
-                    <Menu
-                      size={20}
-                      className="transition-transform duration-300"
-                    />
+                    <Menu size={20} className="transition-transform duration-300" />
                   )}
                 </div>
               </button>
@@ -135,9 +105,7 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         <div
           className={`md:hidden transition-all duration-500 ease-in-out ${
-            isMenuOpen
-              ? "max-h-screen opacity-100 translate-y-0"
-              : "max-h-0 opacity-0 -translate-y-4 overflow-hidden"
+            isMenuOpen ? "max-h-screen opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-4 overflow-hidden"
           }`}
         >
           <div className="mx-4 mt-4 p-6 bg-white border border-gray-200 rounded-2xl shadow-lg">
@@ -150,12 +118,7 @@ const Navbar = () => {
 
             {/* Mobile Navigation Links */}
             <div className="space-y-2">
-              <MobileNavLink
-                href="#home"
-                text="Home"
-                icon={<User className="w-5 h-5" />}
-                onClick={handleNavClick}
-              />
+              <MobileNavLink href="#home" text="Home" icon={<User className="w-5 h-5" />} onClick={handleNavClick} />
               <MobileNavLink
                 href="#experience"
                 text="Experience"
@@ -182,9 +145,9 @@ const Navbar = () => {
                 onClick={() => {
                   window.open(
                     "https://drive.google.com/file/d/1gEvDi0PrJAqQMTWAW_JRf7EnX1pDh83k/view?usp=drive_link",
-                    "_blank"
-                  );
-                  handleNavClick();
+                    "_blank",
+                  )
+                  handleNavClick()
                 }}
                 className="relative w-full px-6 py-4 font-semibold text-white transition-all duration-300 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg hover:shadow-blue-500/30 group overflow-hidden"
               >
@@ -223,11 +186,7 @@ const Navbar = () => {
                   key={social.label}
                   href={social.href}
                   target={social.href.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    social.href.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
+                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className={`flex items-center justify-center w-12 h-12 transition-all duration-300 bg-gray-50 border border-gray-200 rounded-full hover:scale-110 ${social.color}`}
                   title={social.label}
                 >
@@ -247,19 +206,11 @@ const Navbar = () => {
         )}
       </nav>
     </>
-  );
-};
+  )
+}
 
 // NavLink component for desktop
-const NavLink = ({
-  href,
-  text,
-  icon,
-}: {
-  href: string;
-  text: string;
-  icon: React.ReactNode;
-}) => (
+const NavLink = ({ href, text, icon }: { href: string; text: string; icon: React.ReactNode }) => (
   <a
     href={href}
     className="relative flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 transition-all duration-300 rounded-full hover:text-gray-900 hover:bg-white hover:shadow-sm group"
@@ -273,7 +224,7 @@ const NavLink = ({
     {/* Active Indicator */}
     <div className="absolute bottom-0 left-1/2 w-0 h-0.5 transition-all duration-300 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-6"></div>
   </a>
-);
+)
 
 // MobileNavLink component
 const MobileNavLink = ({
@@ -282,10 +233,10 @@ const MobileNavLink = ({
   icon,
   onClick,
 }: {
-  href: string;
-  text: string;
-  icon: React.ReactNode;
-  onClick: () => void;
+  href: string
+  text: string
+  icon: React.ReactNode
+  onClick: () => void
 }) => (
   <a
     href={href}
@@ -304,6 +255,6 @@ const MobileNavLink = ({
       →
     </div>
   </a>
-);
+)
 
-export default Navbar;
+export default Navbar

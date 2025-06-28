@@ -1,11 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import {
   Mail,
   Linkedin,
   Github,
   ArrowUpRight,
- 
   Coffee,
 } from "lucide-react";
 
@@ -37,7 +37,7 @@ const Footer = () => {
     },
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -48,7 +48,7 @@ const Footer = () => {
     },
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 20,
@@ -60,7 +60,7 @@ const Footer = () => {
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: [0.25, 0.46, 0.45, 0.94], 
       },
     },
   };

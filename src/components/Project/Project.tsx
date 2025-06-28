@@ -1,6 +1,7 @@
-"use client"
-import { useState } from "react"
-import { motion } from "framer-motion"
+"use client";
+import { useState } from "react";
+import type { Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Sparkles,
   Code,
@@ -14,18 +15,19 @@ import {
   Mail,
   ArrowRight,
   Filter,
-} from "lucide-react"
-import ProjectCard from "./ProjectCard"
+} from "lucide-react";
+import ProjectCard from "./ProjectCard";
 
 const Project = () => {
-  const [filter, setFilter] = useState("all")
+  const [filter, setFilter] = useState("all");
 
   const projects = [
     {
       id: 1,
-      title: "Artist Management System",
-      main: "Role-based system to manage artists, songs, and related data with CRUD operations and access control for admins and managers.",
-      sourceCodeLink: "https://github.com/nickyMaharjan/artist-management-Frontend",
+      title: "Legal AI",
+      main: "Retrieval-Augmented Generation (RAG) model chatbot to provide accurate answers based on user-uploaded legal documents.",
+      sourceCodeLink:
+        "https://github.com/nickyMaharjan/artist-management-Frontend",
       demoLink: "#",
       techStack: ["Next.js", "Django", "PostgreSQL"],
       category: "fullstack",
@@ -35,7 +37,8 @@ const Project = () => {
       id: 2,
       title: "Online Learning Platform",
       main: "Comprehensive e-learning platform with course management, student progress tracking, and interactive learning modules.",
-      sourceCodeLink: "https://github.com/nickyMaharjan/online-learning-platform",
+      sourceCodeLink:
+        "https://github.com/nickyMaharjan/online-learning-platform",
       demoLink: "#",
       techStack: ["Next.js", "Material-UI", "React"],
       category: "frontend",
@@ -55,7 +58,8 @@ const Project = () => {
       id: 4,
       title: "Inventory Management System",
       main: "Java-based desktop application for vendors to track inventory levels with product management, stock monitoring, and reporting features.",
-      sourceCodeLink: "https://github.com/nickyMaharjan/InventoryManagementSystem",
+      sourceCodeLink:
+        "https://github.com/nickyMaharjan/InventoryManagementSystem",
       demoLink: "#",
       techStack: ["Java", "Swing", "MySQL"],
       category: "desktop",
@@ -91,19 +95,34 @@ const Project = () => {
       category: "ml",
       imageUrl: "/placeholder.svg?height=200&width=300",
     },
-  ]
+  ];
 
   const categories = [
     { id: "all", label: "All Projects", icon: <Code className="w-4 h-4" /> },
-    { id: "fullstack", label: "Full Stack", icon: <Database className="w-4 h-4" /> },
-    { id: "frontend", label: "Frontend", icon: <Palette className="w-4 h-4" /> },
+    {
+      id: "fullstack",
+      label: "Full Stack",
+      icon: <Database className="w-4 h-4" />,
+    },
+    {
+      id: "frontend",
+      label: "Frontend",
+      icon: <Palette className="w-4 h-4" />,
+    },
     { id: "desktop", label: "Desktop", icon: <Monitor className="w-4 h-4" /> },
     { id: "console", label: "Console", icon: <Terminal className="w-4 h-4" /> },
     { id: "testing", label: "Testing", icon: <TestTube className="w-4 h-4" /> },
-    { id: "ml", label: "Machine Learning", icon: <Brain className="w-4 h-4" /> },
-  ]
+    {
+      id: "ml",
+      label: "Machine Learning",
+      icon: <Brain className="w-4 h-4" />,
+    },
+  ];
 
-  const filteredProjects = filter === "all" ? projects : projects.filter((project) => project.category === filter)
+  const filteredProjects =
+    filter === "all"
+      ? projects
+      : projects.filter((project) => project.category === filter);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -114,9 +133,9 @@ const Project = () => {
         delayChildren: 0.2,
       },
     },
-  }
+  };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 30,
@@ -128,13 +147,16 @@ const Project = () => {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
-  }
+  };
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
+    <section
+      id="projects"
+      className="py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden"
+    >
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
         <div className="absolute rounded-full w-96 h-96 bg-blue-400 top-20 left-10 blur-3xl animate-pulse"></div>
@@ -174,17 +196,32 @@ const Project = () => {
 
           {/* Subtitle */}
           <p className="max-w-3xl mx-auto text-lg leading-relaxed text-gray-600 md:text-xl">
-            Here are some of my featured works. Each project represents unique challenges and solutions,
+            Here are some of my featured works. Each project represents unique
+            challenges and solutions,
             <br />
-            <span className="font-medium text-blue-600">showcasing different technologies and approaches.</span>
+            <span className="font-medium text-blue-600">
+              showcasing different technologies and approaches.
+            </span>
           </p>
 
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-8 mt-8">
             {[
-              { number: "7+", label: "Projects", color: "from-blue-500 to-cyan-500" },
-              { number: "6+", label: "Categories", color: "from-green-500 to-emerald-500" },
-              { number: "100%", label: "Open Source", color: "from-purple-500 to-violet-500" },
+              {
+                number: "7+",
+                label: "Projects",
+                color: "from-blue-500 to-cyan-500",
+              },
+              {
+                number: "6+",
+                label: "Categories",
+                color: "from-green-500 to-emerald-500",
+              },
+              {
+                number: "100%",
+                label: "Open Source",
+                color: "from-purple-500 to-violet-500",
+              },
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -194,7 +231,9 @@ const Project = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className={`text-2xl font-bold text-transparent bg-gradient-to-r ${stat.color} bg-clip-text`}>
+                <div
+                  className={`text-2xl font-bold text-transparent bg-gradient-to-r ${stat.color} bg-clip-text`}
+                >
                   {stat.number}
                 </div>
                 <div className="text-sm text-gray-500">{stat.label}</div>
@@ -271,15 +310,21 @@ const Project = () => {
           <div className="inline-block p-8 bg-white border border-gray-200 shadow-lg rounded-3xl">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Want to see
-              <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text"> more?</span>
+              <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
+                {" "}
+                more?
+              </span>
             </h3>
             <p className="text-gray-600 mb-6 max-w-md">
-              Check out my GitHub profile for more projects and contributions, or let's discuss your next project.
+              Check out my GitHub profile for more projects and contributions,
+              or let's discuss your next project.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <motion.button
-                onClick={() => window.open("https://github.com/nickyMaharjan", "_blank")}
+                onClick={() =>
+                  window.open("https://github.com/nickyMaharjan", "_blank")
+                }
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative px-6 py-3 font-medium text-white bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center justify-center gap-2 group overflow-hidden"
@@ -292,7 +337,9 @@ const Project = () => {
               </motion.button>
 
               <motion.button
-                onClick={() => window.open("mailto:nickymaharjan2023@gmail.com", "_blank")}
+                onClick={() =>
+                  window.open("mailto:nickymaharjan2023@gmail.com", "_blank")
+                }
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative px-6 py-3 font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-300 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group"
@@ -305,7 +352,7 @@ const Project = () => {
         </motion.div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Project
+export default Project;

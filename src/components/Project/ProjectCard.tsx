@@ -1,28 +1,34 @@
-"use client"
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Github, Code, Calendar, Star, ExternalLink, Zap } from "lucide-react"
+"use client";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Github, Code, Star, ExternalLink, Zap } from "lucide-react";
 
 type ProjectCardProps = {
-  title: string
-  sourceCodeLink: string
-  main: string
-  imageUrl: string
-  demoLink: string
-  techStack: string[]
-}
+  title: string;
+  sourceCodeLink: string;
+  main: string;
+  imageUrl: string;
+  demoLink: string;
+  techStack: string[];
+};
 
-const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, techStack }: ProjectCardProps) => {
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const [imageError, setImageError] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
+const ProjectCard = ({
+  title,
+  sourceCodeLink,
+  main,
+  imageUrl,
+  techStack,
+}: ProjectCardProps) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Get random project stats for visual interest
   const projectStats = {
     stars: Math.floor(Math.random() * 50) + 5,
     commits: Math.floor(Math.random() * 200) + 20,
     status: Math.random() > 0.3 ? "Active" : "Completed",
-  }
+  };
 
   return (
     <motion.div
@@ -46,12 +52,18 @@ const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, techStack }: Proje
         {/* Animated Background Shapes */}
         <motion.div
           className="absolute w-16 h-16 rounded-full top-4 right-4 bg-blue-400/10 blur-xl"
-          animate={{ scale: isHovered ? 1.2 : 1, opacity: isHovered ? 0.3 : 0.1 }}
+          animate={{
+            scale: isHovered ? 1.2 : 1,
+            opacity: isHovered ? 0.3 : 0.1,
+          }}
           transition={{ duration: 0.5 }}
         />
         <motion.div
           className="absolute w-12 h-12 rounded-full bottom-4 left-4 bg-purple-400/10 blur-lg"
-          animate={{ scale: isHovered ? 1.3 : 1, opacity: isHovered ? 0.4 : 0.1 }}
+          animate={{
+            scale: isHovered ? 1.3 : 1,
+            opacity: isHovered ? 0.4 : 0.1,
+          }}
           transition={{ duration: 0.5, delay: 0.1 }}
         />
 
@@ -95,13 +107,15 @@ const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, techStack }: Proje
             }`}
           >
             <div className="flex items-center gap-1">
-              {projectStats.status === "Active" ? <Zap className="w-3 h-3" /> : <Star className="w-3 h-3" />}
+              {projectStats.status === "Active" ? (
+                <Zap className="w-3 h-3" />
+              ) : (
+                <Star className="w-3 h-3" />
+              )}
               {projectStats.status}
             </div>
           </div>
         </div>
-
-     
       </div>
 
       {/* Content Section */}
@@ -112,12 +126,16 @@ const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, techStack }: Proje
         </h3>
 
         {/* Description */}
-        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">{main}</p>
+        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+          {main}
+        </p>
 
         {/* Tech Stack */}
         {techStack && techStack.length > 0 && (
           <div className="mb-6">
-            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Tech Stack</h4>
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              Tech Stack
+            </h4>
             <div className="flex flex-wrap gap-2">
               {techStack.slice(0, 4).map((tech, index) => (
                 <motion.span
@@ -139,7 +157,6 @@ const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, techStack }: Proje
           </div>
         )}
 
-    
         {/* Action Buttons */}
         <div className="space-y-3">
           {/* Source Code Button */}
@@ -182,7 +199,10 @@ const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, techStack }: Proje
           scale: isHovered ? [1, 1.2, 1] : 1,
           opacity: isHovered ? [0.2, 0.6, 0.2] : 0,
         }}
-        transition={{ duration: 2, repeat: isHovered ? Number.POSITIVE_INFINITY : 0 }}
+        transition={{
+          duration: 2,
+          repeat: isHovered ? Number.POSITIVE_INFINITY : 0,
+        }}
       />
       <motion.div
         className="absolute w-3 h-3 rounded-full -bottom-2 -left-2 bg-purple-400/20"
@@ -190,10 +210,14 @@ const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, techStack }: Proje
           scale: isHovered ? [1, 1.3, 1] : 1,
           opacity: isHovered ? [0.2, 0.5, 0.2] : 0,
         }}
-        transition={{ duration: 2, delay: 0.3, repeat: isHovered ? Number.POSITIVE_INFINITY : 0 }}
+        transition={{
+          duration: 2,
+          delay: 0.3,
+          repeat: isHovered ? Number.POSITIVE_INFINITY : 0,
+        }}
       />
     </motion.div>
-  )
-}
+  );
+};
 
-export default ProjectCard
+export default ProjectCard;
