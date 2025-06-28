@@ -1,6 +1,20 @@
 "use client"
-
 import { useState } from "react"
+import { motion } from "framer-motion"
+import {
+  Sparkles,
+  Code,
+  Database,
+  Palette,
+  Monitor,
+  Terminal,
+  TestTube,
+  Brain,
+  Github,
+  Mail,
+  ArrowRight,
+  Filter,
+} from "lucide-react"
 import ProjectCard from "./ProjectCard"
 
 const Project = () => {
@@ -11,9 +25,9 @@ const Project = () => {
       id: 1,
       title: "Artist Management System",
       main: "Role-based system to manage artists, songs, and related data with CRUD operations and access control for admins and managers.",
-      sourceCodeLink: "https://github.com/luzza07/artist-management-Frontend",
+      sourceCodeLink: "https://github.com/nickyMaharjan/artist-management-Frontend",
       demoLink: "#",
-      techStack: ["Next.js", "Django", "Postgres"],
+      techStack: ["Next.js", "Django", "PostgreSQL"],
       category: "fullstack",
       imageUrl: "/placeholder.svg?height=200&width=300",
     },
@@ -21,19 +35,19 @@ const Project = () => {
       id: 2,
       title: "Online Learning Platform",
       main: "Comprehensive e-learning platform with course management, student progress tracking, and interactive learning modules.",
-      sourceCodeLink: "https://github.com/luzza07/online-learning-platform",
+      sourceCodeLink: "https://github.com/nickyMaharjan/online-learning-platform",
       demoLink: "#",
-      techStack: ["Next.js", "MaterialUI"],
+      techStack: ["Next.js", "Material-UI", "React"],
       category: "frontend",
       imageUrl: "/placeholder.svg?height=200&width=300",
     },
-     {
+    {
       id: 3,
       title: "Recipe Finder",
       main: "Smart recipe search app that helps users discover dishes based on ingredients, dietary preferences, and cooking time.",
-      sourceCodeLink: "https://github.com/sujalamatya/Reciepes",
+      sourceCodeLink: "https://github.com/nickyMaharjan/Recipes",
       demoLink: "#",
-      techStack: ["Next.js", "ShadCN","TailwindCSS"],
+      techStack: ["Next.js", "ShadCN", "Tailwind CSS"],
       category: "frontend",
       imageUrl: "/placeholder.svg?height=200&width=300",
     },
@@ -41,7 +55,7 @@ const Project = () => {
       id: 4,
       title: "Inventory Management System",
       main: "Java-based desktop application for vendors to track inventory levels with product management, stock monitoring, and reporting features.",
-      sourceCodeLink: "https://github.com/luzza07/InventoryManagementSystem",
+      sourceCodeLink: "https://github.com/nickyMaharjan/InventoryManagementSystem",
       demoLink: "#",
       techStack: ["Java", "Swing", "MySQL"],
       category: "desktop",
@@ -51,7 +65,7 @@ const Project = () => {
       id: 5,
       title: "Sneakers Point",
       main: "C-based console application implementing a shopping experience with product selection, cart functionality, and billing system.",
-      sourceCodeLink: "https://github.com/luzza07/Sneakers-Point",
+      sourceCodeLink: "https://github.com/nickyMaharjan/Sneakers-Point",
       demoLink: "#",
       techStack: ["C", "Data Structures"],
       category: "console",
@@ -59,9 +73,9 @@ const Project = () => {
     },
     {
       id: 6,
-      title: "Hukut.com - QA Automation",
+      title: "QA Automation Testing",
       main: "Implemented end-to-end automated tests using Playwright to ensure application functionality and performance with comprehensive test coverage.",
-      sourceCodeLink: "https://github.com/luzza07/Hukut.com-QA-automation-Testing",
+      sourceCodeLink: "https://github.com/nickyMaharjan/QA-automation-Testing",
       demoLink: "#",
       techStack: ["Playwright", "JavaScript", "QA Automation"],
       category: "testing",
@@ -69,127 +83,171 @@ const Project = () => {
     },
     {
       id: 7,
-      title: "Drug Classification",
+      title: "Drug Classification ML",
       main: "Machine learning model for drug classification using Python libraries including Pandas, Scikit-learn, and Matplotlib for data analysis.",
-      sourceCodeLink: "https://github.com/luzza07/Drug-Classification",
+      sourceCodeLink: "https://github.com/nickyMaharjan/Drug-Classification",
       demoLink: "#",
-      techStack: ["Python", "Machine Learning", "Pandas"],
+      techStack: ["Python", "Machine Learning", "Pandas", "Scikit-learn"],
       category: "ml",
       imageUrl: "/placeholder.svg?height=200&width=300",
     },
   ]
 
   const categories = [
-    { id: "all", label: "All Projects", icon: "🚀" },
-    { id: "fullstack", label: "Full Stack", icon: "💻" },
-    { id: "frontend", label: "Frontend", icon: "🎨" },
-    { id: "desktop", label: "Desktop", icon: "🖥️" },
-    { id: "console", label: "Console", icon: "⌨️" },
-    { id: "testing", label: "Testing", icon: "🧪" },
-    { id: "ml", label: "Machine Learning", icon: "🤖" },
+    { id: "all", label: "All Projects", icon: <Code className="w-4 h-4" /> },
+    { id: "fullstack", label: "Full Stack", icon: <Database className="w-4 h-4" /> },
+    { id: "frontend", label: "Frontend", icon: <Palette className="w-4 h-4" /> },
+    { id: "desktop", label: "Desktop", icon: <Monitor className="w-4 h-4" /> },
+    { id: "console", label: "Console", icon: <Terminal className="w-4 h-4" /> },
+    { id: "testing", label: "Testing", icon: <TestTube className="w-4 h-4" /> },
+    { id: "ml", label: "Machine Learning", icon: <Brain className="w-4 h-4" /> },
   ]
 
   const filteredProjects = filter === "all" ? projects : projects.filter((project) => project.category === filter)
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  }
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  }
+
   return (
-    <section
-      id="projects"
-      className="relative px-4 py-16 overflow-hidden md:py-24 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900"
-    >
-      {/* Enhanced Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated Gradient Orbs */}
-        <div className="absolute rounded-full w-96 h-96 bg-yellow-400/10 top-20 left-10 blur-3xl animate-pulse"></div>
+    <section id="projects" className="py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
+        <div className="absolute rounded-full w-96 h-96 bg-blue-400 top-20 left-10 blur-3xl animate-pulse"></div>
         <div
-          className="absolute rounded-full bg-blue-500/10 bottom-20 right-20 w-80 h-80 blur-3xl animate-pulse"
+          className="absolute rounded-full bg-purple-400 bottom-20 right-20 w-80 h-80 blur-3xl animate-pulse"
           style={{ animationDelay: "2s" }}
         ></div>
         <div
-          className="absolute bg-purple-500/10 rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] blur-3xl animate-pulse"
+          className="absolute bg-pink-400 rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] blur-3xl animate-pulse"
           style={{ animationDelay: "4s" }}
         ></div>
-
-        {/* Floating Particles */}
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-yellow-400/30 animate-bounce"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
-            }}
-          ></div>
-        ))}
       </div>
 
-      <div className="relative mx-auto max-w-7xl">
-        {/* Enhanced Section Header */}
-        <div className="mb-16 text-center">
+      <div className="container mx-auto px-4 max-w-7xl relative">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           {/* Section Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-yellow-400 border rounded-full bg-yellow-400/10 border-yellow-400/20">
-            <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-blue-600 bg-blue-50 rounded-full">
+            <Sparkles className="w-4 h-4" />
             Portfolio Showcase
           </div>
 
           {/* Main Title */}
-          <h1 className="mb-6 text-4xl font-bold text-transparent sm:text-5xl md:text-6xl bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500">
-            My Projects
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+            My
+            <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
+              {" "}
+              Projects
+            </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="max-w-3xl mx-auto text-lg leading-relaxed text-slate-300 md:text-xl">
+          <p className="max-w-3xl mx-auto text-lg leading-relaxed text-gray-600 md:text-xl">
             Here are some of my featured works. Each project represents unique challenges and solutions,
             <br />
-            <span className="font-medium text-yellow-400">showcasing different technologies and approaches.</span>
+            <span className="font-medium text-blue-600">showcasing different technologies and approaches.</span>
           </p>
 
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-8 mt-8">
             {[
-              { number: "6+", label: "Projects" },
-              { number: "5+", label: "Technologies" },
-              { number: "100%", label: "Open Source" },
+              { number: "7+", label: "Projects", color: "from-blue-500 to-cyan-500" },
+              { number: "6+", label: "Categories", color: "from-green-500 to-emerald-500" },
+              { number: "100%", label: "Open Source", color: "from-purple-500 to-violet-500" },
             ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className={`text-2xl font-bold text-transparent bg-gradient-to-r ${stat.color} bg-clip-text`}>
                   {stat.number}
                 </div>
-                <div className="text-sm text-slate-400">{stat.label}</div>
-              </div>
+                <div className="text-sm text-gray-500">{stat.label}</div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Filter Tabs */}
-        <div className="mb-12">
-          <div className="flex flex-wrap justify-center gap-3 p-2 border rounded-2xl bg-slate-800/50 backdrop-blur-sm border-slate-700/50">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-12"
+        >
+          <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center gap-2 text-gray-600">
+              <Filter className="w-4 h-4" />
+              <span className="text-sm font-medium">Filter by category</span>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3 p-3 bg-white border border-gray-200 rounded-2xl shadow-sm">
             {categories.map((category) => (
-              <button
+              <motion.button
                 key={category.id}
                 onClick={() => setFilter(category.id)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
                   filter === category.id
-                    ? "bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-900 shadow-lg"
-                    : "text-slate-300 hover:text-white hover:bg-slate-700/50"
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 }`}
               >
-                <span>{category.icon}</span>
+                {category.icon}
                 <span className="hidden sm:inline">{category.label}</span>
-              </button>
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className="opacity-0 animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms`, animationFillMode: "forwards" }}
-            >
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+        >
+          {filteredProjects.map((project) => (
+            <motion.div key={project.id} variants={cardVariants}>
               <ProjectCard
                 title={project.title}
                 main={project.main}
@@ -198,66 +256,54 @@ const Project = () => {
                 imageUrl={project.imageUrl}
                 techStack={project.techStack}
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Enhanced Call-to-Action */}
-        <div className="mt-16 text-center">
-          <div className="inline-block p-8 border shadow-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border-slate-700/50 rounded-3xl">
-            <h3 className="mb-4 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-              Want to see more?
+        {/* Call-to-Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-center"
+        >
+          <div className="inline-block p-8 bg-white border border-gray-200 shadow-lg rounded-3xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Want to see
+              <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text"> more?</span>
             </h3>
-            <p className="mb-6 text-slate-300">Check out my GitHub profile for more projects and contributions.</p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <button
-                onClick={() => window.open("https://github.com/luzza07", "_blank")}
-                className="relative px-6 py-3 overflow-hidden font-medium text-white transition-all duration-300 border-2 border-yellow-400 group rounded-xl hover:bg-yellow-400 hover:text-slate-900 hover:scale-105"
-              >
-                {/* Button Shine Effect */}
-                <div className="absolute inset-0 transition-transform duration-700 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full"></div>
-                <span className="relative flex items-center gap-2">
-                  🐙 View All Projects
-                  <svg
-                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
-              </button>
+            <p className="text-gray-600 mb-6 max-w-md">
+              Check out my GitHub profile for more projects and contributions, or let's discuss your next project.
+            </p>
 
-              <button
-                onClick={() => window.open("mailto:luzzadangol456@gmail.com", "_blank")}
-                className="relative px-6 py-3 overflow-hidden font-medium transition-all duration-300 border-2 group text-slate-300 border-slate-600 rounded-xl hover:border-blue-400 hover:text-blue-400 hover:scale-105"
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <motion.button
+                onClick={() => window.open("https://github.com/nickyMaharjan", "_blank")}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative px-6 py-3 font-medium text-white bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center justify-center gap-2 group overflow-hidden"
               >
                 {/* Button Shine Effect */}
-                <div className="absolute inset-0 transition-transform duration-700 -translate-x-full bg-gradient-to-r from-transparent via-blue-400/10 to-transparent group-hover:translate-x-full"></div>
-                <span className="relative flex items-center gap-2">📧 Let&apos;s Collaborate</span>
-              </button>
+                <div className="absolute inset-0 transition-transform duration-700 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:translate-x-full"></div>
+                <Github className="w-5 h-5" />
+                <span className="relative">View All Projects</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </motion.button>
+
+              <motion.button
+                onClick={() => window.open("mailto:nickymaharjan2023@gmail.com", "_blank")}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative px-6 py-3 font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-300 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group"
+              >
+                <Mail className="w-5 h-5" />
+                <span className="relative">Let's Collaborate</span>
+              </motion.button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-
-      {/* Custom CSS for animations */}
-      <style>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out;
-        }
-      `}</style>
     </section>
   )
 }

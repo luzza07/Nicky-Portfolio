@@ -51,7 +51,7 @@ const Navbar = () => {
             {/* Logo/Brand */}
             <div className="relative group">
               <a
-                href="#home"
+                href="/"
                 className="relative text-2xl md:text-3xl font-bold tracking-tight text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105"
               >
                 Nicky Maharjan
@@ -64,7 +64,7 @@ const Navbar = () => {
             <div className="items-center hidden md:flex space-x-1">
               <div className="flex items-center p-2 space-x-1 bg-gray-50 border border-gray-200 rounded-full shadow-sm">
                 <NavLink
-                  href="#home"
+                  href="/"
                   text="Home"
                   icon={<User className="w-4 h-4" />}
                 />

@@ -1,6 +1,8 @@
 "use client"
-
 import { useState } from "react"
+import { motion } from "framer-motion"
+import { Github, Code, Calendar, Star, ExternalLink, Zap } from "lucide-react"
+
 type ProjectCardProps = {
   title: string
   sourceCodeLink: string
@@ -9,173 +11,188 @@ type ProjectCardProps = {
   demoLink: string
   techStack: string[]
 }
-const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, demoLink }:ProjectCardProps) => {
+
+const ProjectCard = ({ title, sourceCodeLink, main, imageUrl, techStack }: ProjectCardProps) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [imageError, setImageError] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
+
+  // Get random project stats for visual interest
+  const projectStats = {
+    stars: Math.floor(Math.random() * 50) + 5,
+    commits: Math.floor(Math.random() * 200) + 20,
+    status: Math.random() > 0.3 ? "Active" : "Completed",
+  }
 
   return (
-    <div className="relative flex flex-col w-full max-w-xs overflow-hidden transition-all duration-500 group sm:max-w-sm md:max-w-md hover:-translate-y-2 hover:rotate-1">
-      {/* Animated Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl"></div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="relative w-full max-w-sm mx-auto overflow-hidden bg-white rounded-2xl shadow-lg border border-gray-100 group"
+    >
+      {/* Background Gradient on Hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      {/* Glow Effect */}
-      <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-br from-yellow-400/10 via-transparent to-blue-500/10 rounded-2xl group-hover:opacity-100"></div>
+      {/* Image Section */}
+      <div className="relative h-48 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
 
-      {/* Main Card Container */}
-      <div className="relative transition-all duration-500 border shadow-2xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border-slate-700/50 group-hover:border-yellow-400/30 rounded-2xl">
-        {/* Decorative Corner Elements */}
-        <div className="absolute w-8 h-8 transition-opacity duration-500 border-t-2 border-l-2 opacity-0 top-3 left-3 border-yellow-400/30 rounded-tl-xl group-hover:opacity-100"></div>
-        <div className="absolute w-8 h-8 transition-opacity duration-500 border-b-2 border-r-2 opacity-0 bottom-3 right-3 border-blue-400/30 rounded-br-xl group-hover:opacity-100"></div>
+        {/* Animated Background Shapes */}
+        <motion.div
+          className="absolute w-16 h-16 rounded-full top-4 right-4 bg-blue-400/10 blur-xl"
+          animate={{ scale: isHovered ? 1.2 : 1, opacity: isHovered ? 0.3 : 0.1 }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.div
+          className="absolute w-12 h-12 rounded-full bottom-4 left-4 bg-purple-400/10 blur-lg"
+          animate={{ scale: isHovered ? 1.3 : 1, opacity: isHovered ? 0.4 : 0.1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        />
 
-        {/* Image Section */}
-        <div className="relative h-48 overflow-hidden rounded-t-2xl">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-purple-900/40 to-indigo-900/40"></div>
-
-          {/* Animated Background Shapes */}
-          <div className="absolute w-16 h-16 rounded-full top-4 right-4 bg-yellow-400/10 blur-xl animate-pulse"></div>
-          <div
-            className="absolute w-12 h-12 rounded-full bottom-4 left-4 bg-blue-400/10 blur-lg animate-pulse"
-            style={{ animationDelay: "1s" }}
-          ></div>
-
-          {imageUrl && !imageError ? (
-            <div className="relative w-full h-full">
-              {!imageLoaded && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-8 h-8 border-2 border-yellow-400 rounded-full border-t-transparent animate-spin"></div>
-                </div>
-              )}
-              <img
-                src={imageUrl || "/placeholder.svg"}
-                alt={title}
-                className={`object-cover w-full h-full transition-all duration-700 group-hover:scale-110 ${
-                  imageLoaded ? "opacity-100" : "opacity-0"
-                }`}
-                onLoad={() => setImageLoaded(true)}
-                onError={() => setImageError(true)}
-              />
-              {/* Image Overlay */}
-              <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent group-hover:opacity-100"></div>
-            </div>
-          ) : (
-            <div className="flex items-center justify-center w-full h-full">
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-3 text-slate-400/40">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-full h-full"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1}
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6l.586-.586a2 2 0 012.828 0L20 8m-6-6l-1.586 1.586a2 2 0 01-2.828 0L4 8"
-                    />
-                  </svg>
-                </div>
-                <p className="text-sm text-slate-500">Project Preview</p>
+        {imageUrl && !imageError ? (
+          <div className="relative w-full h-full">
+            {!imageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 border-2 border-blue-500 rounded-full border-t-transparent animate-spin" />
               </div>
-            </div>
-          )}
-
-          {/* Floating Tech Badge */}
-          <div className="absolute px-3 py-1 border rounded-full top-3 left-3 bg-black/50 backdrop-blur-sm border-white/10">
-            <span className="text-xs font-medium text-yellow-400">💻 Project</span>
-          </div>
-        </div>
-
-        {/* Content Section */}
-        <div className="flex flex-col flex-1 p-6">
-          {/* Title with Gradient */}
-          <h3 className="mb-3 text-xl font-bold text-transparent transition-all duration-500 bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 group-hover:from-yellow-300 group-hover:to-orange-400">
-            {title}
-          </h3>
-
-          {/* Description */}
-          <p className="flex-1 mb-6 text-sm leading-relaxed transition-colors duration-300 text-slate-300 md:text-base group-hover:text-slate-200">
-            {main}
-          </p>
-
-         
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap gap-3 mt-auto">
-            {demoLink && (
-              <button
-                onClick={() => window.open(demoLink, "_blank")}
-                className="group/btn flex-1 min-w-[120px] px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white rounded-xl text-sm font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2 relative overflow-hidden"
-              >
-                {/* Button Shine Effect */}
-                <div className="absolute inset-0 transition-transform duration-700 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover/btn:translate-x-full"></div>
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 transition-transform duration-300 group-hover/btn:scale-110"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  />
-                </svg>
-                <span className="relative">Live Demo</span>
-              </button>
             )}
+            <img
+              src={imageUrl || "/placeholder.svg?height=192&width=384"}
+              alt={title}
+              className={`object-cover w-full h-full transition-all duration-700 group-hover:scale-110 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageError(true)}
+            />
+            {/* Image Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </div>
+        ) : (
+          <div className="flex items-center justify-center w-full h-full">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-3 text-gray-300">
+                <Code className="w-full h-full" />
+              </div>
+              <p className="text-sm text-gray-500">Project Preview</p>
+            </div>
+          </div>
+        )}
 
-            <button
-              onClick={() => window.open(sourceCodeLink, "_blank")}
-              className="group/btn flex-1 min-w-[120px] px-4 py-3 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white rounded-xl text-sm font-medium transition-all duration-300 hover:shadow-lg hover:shadow-slate-500/20 flex items-center justify-center gap-2 border border-slate-600 hover:border-slate-500 relative overflow-hidden"
-            >
-              {/* Button Shine Effect */}
-              <div className="absolute inset-0 transition-transform duration-700 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover/btn:translate-x-full"></div>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 transition-transform duration-300 group-hover/btn:scale-110"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                />
-              </svg>
-              <span className="relative">Source Code</span>
-            </button>
+        {/* Status Badge */}
+        <div className="absolute top-3 left-3 flex items-center gap-2">
+          <div
+            className={`px-3 py-1 rounded-full text-xs font-medium border ${
+              projectStats.status === "Active"
+                ? "bg-green-50 text-green-700 border-green-200"
+                : "bg-blue-50 text-blue-700 border-blue-200"
+            }`}
+          >
+            <div className="flex items-center gap-1">
+              {projectStats.status === "Active" ? <Zap className="w-3 h-3" /> : <Star className="w-3 h-3" />}
+              {projectStats.status}
+            </div>
           </div>
         </div>
 
-        {/* Bottom Gradient Line */}
-        <div className="absolute bottom-0 left-0 w-0 h-1 transition-all duration-500 bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 group-hover:w-full rounded-b-2xl"></div>
+     
       </div>
 
+      {/* Content Section */}
+      <div className="relative p-6">
+        {/* Title */}
+        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+          {title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">{main}</p>
+
+        {/* Tech Stack */}
+        {techStack && techStack.length > 0 && (
+          <div className="mb-6">
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Tech Stack</h4>
+            <div className="flex flex-wrap gap-2">
+              {techStack.slice(0, 4).map((tech, index) => (
+                <motion.span
+                  key={tech}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-md border border-gray-200 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200 transition-colors duration-200"
+                >
+                  {tech}
+                </motion.span>
+              ))}
+              {techStack.length > 4 && (
+                <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-500 rounded-md border border-gray-200">
+                  +{techStack.length - 4} more
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+    
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          {/* Source Code Button */}
+          <motion.button
+            onClick={() => window.open(sourceCodeLink, "_blank")}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full px-4 py-3 bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white rounded-xl text-sm font-medium transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20 flex items-center justify-center gap-2 relative overflow-hidden group/btn"
+          >
+            {/* Button Shine Effect */}
+            <div className="absolute inset-0 transition-transform duration-700 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover/btn:translate-x-full" />
+            <Github className="w-4 h-4" />
+            <span className="relative">View Source Code</span>
+            <ExternalLink className="w-3 h-3 opacity-70" />
+          </motion.button>
+
+          {/* Additional Info Button */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-sm font-medium transition-all duration-300 border border-blue-200 hover:border-blue-300"
+          >
+            Learn More About This Project
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Bottom Accent Line */}
+      <motion.div
+        className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+        initial={{ width: 0 }}
+        whileInView={{ width: "100%" }}
+        transition={{ duration: 1, delay: 0.5 }}
+      />
+
       {/* Floating Decorative Elements */}
-      <div
-        className="absolute w-4 h-4 transition-all duration-500 rounded-full opacity-0 -top-2 -right-2 bg-yellow-400/20 group-hover:opacity-100 animate-bounce"
-        style={{ animationDelay: "0ms" }}
-      ></div>
-      <div
-        className="absolute w-3 h-3 transition-all duration-500 rounded-full opacity-0 -bottom-2 -left-2 bg-blue-400/20 group-hover:opacity-100 animate-bounce"
-        style={{ animationDelay: "200ms" }}
-      ></div>
-    </div>
+      <motion.div
+        className="absolute w-4 h-4 rounded-full -top-2 -right-2 bg-blue-400/20"
+        animate={{
+          scale: isHovered ? [1, 1.2, 1] : 1,
+          opacity: isHovered ? [0.2, 0.6, 0.2] : 0,
+        }}
+        transition={{ duration: 2, repeat: isHovered ? Number.POSITIVE_INFINITY : 0 }}
+      />
+      <motion.div
+        className="absolute w-3 h-3 rounded-full -bottom-2 -left-2 bg-purple-400/20"
+        animate={{
+          scale: isHovered ? [1, 1.3, 1] : 1,
+          opacity: isHovered ? [0.2, 0.5, 0.2] : 0,
+        }}
+        transition={{ duration: 2, delay: 0.3, repeat: isHovered ? Number.POSITIVE_INFINITY : 0 }}
+      />
+    </motion.div>
   )
 }
 
